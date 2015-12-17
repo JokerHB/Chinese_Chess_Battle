@@ -8,7 +8,7 @@ public class KnightsPiece extends Piece {
 	}
 
 	@Override
-	public void rule(Board board, String player) {
+	public void rule(Board board) {
 		// TODO Auto-generated method stub
 		int[][] target = new int[][] { { 1, -2 }, { 2, -1 }, { 2, 1 }, { 1, 2 }, { -1, 2 }, { -2, 1 }, { -2, -1 },
 				{ -1, -2 } };
@@ -24,7 +24,7 @@ public class KnightsPiece extends Piece {
 			if (board.isEmpty(f)) {
 				if (board.isEmpty(e)) {
 					this.nextPosition.add(e);
-				} else if (board.getPiece(e).getCamp().hashCode() != player.hashCode()) {
+				} else if (board.getPiece(e).getCamp().hashCode() != board.currentPlayer.hashCode()) {
 					this.nextPosition.add(e);
 				}
 			}

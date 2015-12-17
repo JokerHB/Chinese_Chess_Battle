@@ -8,7 +8,7 @@ public abstract class Piece implements Cloneable {
 	public int[] currentPosition = new int[2];	// current position in board
 	public ArrayList<int[]> nextPosition = new ArrayList<int[]>();	// next position
 	
-	public abstract void rule(Board board, String player);  
+	public abstract void rule(Board board);  
 	
 	public Piece(String pid, int[] cp) {
 		this.id = pid;

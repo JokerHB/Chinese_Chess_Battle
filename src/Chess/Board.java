@@ -43,8 +43,8 @@ public class Board {
 		cells[srcPos[0]][srcPos[1]] = null;
 		cells[newPos[0]][newPos[1]] = srcPiece;
 		srcPiece.currentPosition = newPos;
-		currentPlayer = (currentPlayer == "red") ? "black" : "red";
-		
+		currentPlayer = (currentPlayer.hashCode() == "red".hashCode()) ? "black" : "red";
+
 		return newPiece;
 	}
 

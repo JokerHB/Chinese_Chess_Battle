@@ -8,7 +8,7 @@ public class CannonsPiece extends Piece {
 	}
 
 	@Override
-	public void rule(Board board, String player) {
+	public void rule(Board board) {
 		// TODO Auto-generated method stub
 		int[] yOffsets = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 		int[] xOffsets = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -26,7 +26,7 @@ public class CannonsPiece extends Piece {
 				else
 					rr = true;
 			} else if (!e) {
-				if (board.getPiece(rMove).getCamp().hashCode() != player.hashCode())
+				if (board.getPiece(rMove).getCamp().hashCode() != board.currentPlayer.hashCode())
 					this.nextPosition.add(rMove);
 				break;
 			}
@@ -43,7 +43,7 @@ public class CannonsPiece extends Piece {
 				else
 					ll = true;
 			} else if (!e) {
-				if (board.getPiece(lMove).getCamp().hashCode() != player.hashCode()) {
+				if (board.getPiece(lMove).getCamp().hashCode() != board.currentPlayer.hashCode()) {
 					this.nextPosition.add(lMove);
 				}
 				break;
@@ -61,7 +61,7 @@ public class CannonsPiece extends Piece {
 				else
 					uu = true;
 			} else if (!e) {
-				if (board.getPiece(uMove).getCamp().hashCode() != player.hashCode())
+				if (board.getPiece(uMove).getCamp().hashCode() != board.currentPlayer.hashCode())
 					this.nextPosition.add(uMove);
 				break;
 			}
@@ -78,7 +78,7 @@ public class CannonsPiece extends Piece {
 				else
 					dd = true;
 			} else if (!e) {
-				if (board.getPiece(dMove).getCamp().hashCode() != player.hashCode())
+				if (board.getPiece(dMove).getCamp().hashCode() != board.currentPlayer.hashCode())
 					this.nextPosition.add(dMove);
 				break;
 			}
