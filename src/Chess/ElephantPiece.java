@@ -25,7 +25,7 @@ public class ElephantPiece extends Piece {
 			if (board.isEmpty(f)) {
 				if (board.isEmpty(e)) {
 					this.nextPosition.add(e);
-				} else if (board.getPiece(e).getCamp().hashCode() != board.currentPlayer.hashCode()) {
+				} else if (board.getPiece(e).getCamp().charAt(0) != board.currentPlayer.charAt(0)) {
 					this.nextPosition.add(e);
 				}
 			}

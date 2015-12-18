@@ -28,7 +28,7 @@ public class CannonsPiece extends Piece {
 				else
 					rr = true;
 			} else if (!e) {
-				if (board.getPiece(rMove).getCamp().hashCode() != board.currentPlayer.hashCode())
+				if (board.getPiece(rMove).getCamp().charAt(0) != board.currentPlayer.charAt(0))
 					this.nextPosition.add(rMove);
 				break;
 			}
@@ -45,7 +45,7 @@ public class CannonsPiece extends Piece {
 				else
 					ll = true;
 			} else if (!e) {
-				if (board.getPiece(lMove).getCamp().hashCode() != board.currentPlayer.hashCode()) {
+				if (board.getPiece(lMove).getCamp().charAt(0) != board.currentPlayer.charAt(0)) {
 					this.nextPosition.add(lMove);
 				}
 				break;
@@ -63,7 +63,7 @@ public class CannonsPiece extends Piece {
 				else
 					uu = true;
 			} else if (!e) {
-				if (board.getPiece(uMove).getCamp().hashCode() != board.currentPlayer.hashCode())
+				if (board.getPiece(uMove).getCamp().charAt(0) != board.currentPlayer.charAt(0))
 					this.nextPosition.add(uMove);
 				break;
 			}
@@ -80,7 +80,7 @@ public class CannonsPiece extends Piece {
 				else
 					dd = true;
 			} else if (!e) {
-				if (board.getPiece(dMove).getCamp().hashCode() != board.currentPlayer.hashCode())
+				if (board.getPiece(dMove).getCamp().charAt(0) != board.currentPlayer.charAt(0))
 					this.nextPosition.add(dMove);
 				break;
 			}

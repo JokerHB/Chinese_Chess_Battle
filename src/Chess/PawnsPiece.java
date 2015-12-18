@@ -20,7 +20,7 @@ public class PawnsPiece extends Piece {
 				int[] e = new int[] { this.currentPosition[0] - 1, this.currentPosition[1] };
 				if (board.isEmpty(e))
 					this.nextPosition.add(e);
-				else if (board.getPiece(e).getCamp().hashCode() != board.currentPlayer.hashCode())
+				else if (board.getPiece(e).getCamp().charAt(0) != board.currentPlayer.charAt(0))
 					this.nextPosition.add(e);
 			} else {
 				for (int[] aTarget : targetU) {
@@ -29,7 +29,7 @@ public class PawnsPiece extends Piece {
 						continue;
 					if (board.isEmpty(e))
 						this.nextPosition.add(e);
-					else if (board.getPiece(e).getCamp().hashCode() != board.currentPlayer.hashCode())
+					else if (board.getPiece(e).getCamp().charAt(0) != board.currentPlayer.charAt(0))
 						this.nextPosition.add(e);
 				}
 			}
@@ -39,7 +39,7 @@ public class PawnsPiece extends Piece {
 				int[] e = new int[] { this.currentPosition[0] + 1, this.currentPosition[1] };
 				if (board.isEmpty(e))
 					this.nextPosition.add(e);
-				else if (board.getPiece(e).getCamp().hashCode() != board.currentPlayer.hashCode())
+				else if (board.getPiece(e).getCamp().charAt(0) != board.currentPlayer.charAt(0))
 					this.nextPosition.add(e);
 			} else {
 				for (int[] aTarget : targetD) {
@@ -48,7 +48,7 @@ public class PawnsPiece extends Piece {
 						continue;
 					if (board.isEmpty(e))
 						this.nextPosition.add(e);
-					else if (board.getPiece(e).getCamp().hashCode() != board.currentPlayer.hashCode())
+					else if (board.getPiece(e).getCamp().charAt(0) != board.currentPlayer.charAt(0))
 						this.nextPosition.add(e);
 				}
 			}

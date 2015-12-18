@@ -19,7 +19,7 @@ public class RookPiece extends Piece {
 			int[] rMove = new int[] { currentPosition[0], currentPosition[1] + offset };
 			if (board.isEmpty(rMove)) {
 				nextPosition.add(rMove);
-			} else if (board.isInside(rMove) && board.getPiece(rMove).getCamp().hashCode() != board.currentPlayer.hashCode()) {
+			} else if (board.isInside(rMove) && board.getPiece(rMove).getCamp().charAt(0) != board.currentPlayer.charAt(0)) {
 				nextPosition.add(rMove);
 				break;
 			} else
@@ -29,7 +29,7 @@ public class RookPiece extends Piece {
 			int[] lMove = new int[] { currentPosition[0], currentPosition[1] - offset };
 			if (board.isEmpty(lMove)) {
 				nextPosition.add(lMove);
-			} else if (board.isInside(lMove) && board.getPiece(lMove).getCamp().hashCode() != board.currentPlayer.hashCode()) {
+			} else if (board.isInside(lMove) && board.getPiece(lMove).getCamp().charAt(0) != board.currentPlayer.charAt(0)) {
 				nextPosition.add(lMove);
 				break;
 			} else
@@ -39,7 +39,7 @@ public class RookPiece extends Piece {
 			int[] uMove = new int[] { currentPosition[0] - offset, currentPosition[1] };
 			if (board.isEmpty(uMove)) {
 				nextPosition.add(uMove);
-			} else if (board.isInside(uMove) && board.getPiece(uMove).getCamp().hashCode() != board.currentPlayer.hashCode()) {
+			} else if (board.isInside(uMove) && board.getPiece(uMove).getCamp().charAt(0) != board.currentPlayer.charAt(0)) {
 				nextPosition.add(uMove);
 				break;
 			} else
@@ -49,7 +49,7 @@ public class RookPiece extends Piece {
 			int[] dMove = new int[] { currentPosition[0] + offset, currentPosition[1] };
 			if (board.isEmpty(dMove)) {
 				nextPosition.add(dMove);
-			} else if (board.isInside(dMove) && board.getPiece(dMove).getCamp().hashCode() != board.currentPlayer.hashCode()) {
+			} else if (board.isInside(dMove) && board.getPiece(dMove).getCamp().charAt(0) != board.currentPlayer.charAt(0)) {
 				nextPosition.add(dMove);
 				break;
 			} else
