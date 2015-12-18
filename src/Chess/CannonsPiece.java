@@ -14,6 +14,8 @@ public class CannonsPiece extends Piece {
 		int[] xOffsets = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 		boolean rr = false, ll = false, uu = false, dd = false;
 
+		this.nextPosition.clear();
+		
 		for (int offset : yOffsets) {
 			int[] rMove = new int[] { this.currentPosition[0], this.currentPosition[1] + offset };
 

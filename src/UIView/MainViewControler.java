@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -29,6 +30,7 @@ public class MainViewControler {
 	private static final int SY_OFFSET = 15;
 
 	private Map<String, JLabel> pieceObjects = new HashMap<String, JLabel>();
+	private Map<String, JLabel> nextStepObjects = new HashMap<String, JLabel>();
 	private Board board;
 	private String selectedPieceID;
 	private JFrame frame;
@@ -63,6 +65,22 @@ public class MainViewControler {
 		this.lblPlayer.setSize(this.PIECE_WIDTH, this.PIECE_HEIGHT);
 		this.pane.add(this.lblPlayer, 0);
 
+		for (int i = 0; i < Board.BOARD_HEIGHT; i++) {
+			for (int j = 0; j < Board.BOARD_WIDTH; j++) {
+				JLabel nextStep = new JLabel(new ImageIcon("res/img/ns.png"));
+				String id = String.valueOf(i) + "," + String.valueOf(j);
+				int[] setPosition = modelToViewConverter(new int[]{i,j});
+
+				nextStep.setLocation(setPosition[0], setPosition[1]);				
+				nextStep.setSize(this.PIECE_WIDTH, this.PIECE_HEIGHT);
+				nextStep.setVisible(false);
+				
+				this.nextStepObjects.put(id, nextStep);
+				this.pane.add(nextStep, 1);
+			}
+		}
+		this.frame.setVisible(true);
+
 		Map<String, Piece> pieces = board.pieces;
 		for (Map.Entry<String, Piece> stringPieceEntry : pieces.entrySet()) {
 			String id = stringPieceEntry.getKey();
@@ -73,6 +91,7 @@ public class MainViewControler {
 			lblPiece.setLocation(setPosition[0], setPosition[1]);
 			lblPiece.setSize(this.PIECE_WIDTH, this.PIECE_HEIGHT);
 			lblPiece.addMouseListener(new PieceOnClickListener(id));
+
 			this.pieceObjects.put(stringPieceEntry.getKey(), lblPiece);
 			this.pane.add(lblPiece, 0);
 		}
@@ -151,11 +170,31 @@ public class MainViewControler {
 						pieceObjects.remove(id);
 						gameController.moveChess(selectedPieceID, pos, board);
 						movePieceFromModel(selectedPieceID, pos);
+
+						for (Map.Entry<String, JLabel> stringPieceEntry : nextStepObjects.entrySet()) {
+							stringPieceEntry.getValue().setVisible(false);
+						}
+						
 						break;
 					}
 				}
 			} else if (id.charAt(0) == board.currentPlayer.charAt(0)) {
+				if (selectedPieceID != null && id.hashCode() != selectedPieceID.hashCode()) {
+					for (Map.Entry<String, JLabel> stringPieceEntry : nextStepObjects.entrySet()) {
+						stringPieceEntry.getValue().setVisible(false);
+					}
+				}
+
 				selectedPieceID = id;
+
+				board.pieces.get(selectedPieceID).rule(board);
+				ArrayList<int[]> nextPosition = board.pieces.get(selectedPieceID).nextPosition;
+
+				for (int[] each : nextPosition) {
+					String id = String.valueOf(each[0]) + "," + String.valueOf(each[1]);
+					nextStepObjects.get(id).setVisible(true);
+				}
+				frame.setVisible(true);
 			}
 		}
 	}
@@ -168,11 +207,16 @@ public class MainViewControler {
 				int[] pos = viewToModelConverter(sPos);
 				board.pieces.get(selectedPieceID).rule(board);
 				ArrayList<int[]> nextPosition = board.pieces.get(selectedPieceID).nextPosition;
-				
+
 				for (int[] each : nextPosition) {
 					if (Arrays.equals(each, pos)) {
 						gameController.moveChess(selectedPieceID, pos, board);
 						movePieceFromModel(selectedPieceID, pos);
+
+						for (Map.Entry<String, JLabel> stringPieceEntry : nextStepObjects.entrySet()) {
+							stringPieceEntry.getValue().setVisible(false);
+						}
+						
 						break;
 					}
 				}

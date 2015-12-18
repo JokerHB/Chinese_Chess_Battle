@@ -13,6 +13,8 @@ public class KingPiece extends Piece {
 		/* 3*3 block */
 		int[][] target = new int[][] { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 
+		this.nextPosition.clear();
+		
 		for (int[] aTarget : target) {
 			int[] e = new int[] { this.currentPosition[0] + aTarget[0], this.currentPosition[1] + aTarget[1] };
 

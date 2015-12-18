@@ -13,6 +13,8 @@ public class RookPiece extends Piece {
 		int[] yOffsets = new int[] { 1, 2, 3, 4, 5, 6, 7, 8 };
 		int[] xOffsets = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 
+		this.nextPosition.clear();
+		
 		for (int offset : yOffsets) {
 			int[] rMove = new int[] { currentPosition[0], currentPosition[1] + offset };
 			if (board.isEmpty(rMove)) {

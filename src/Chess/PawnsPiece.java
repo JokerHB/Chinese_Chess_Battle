@@ -13,6 +13,8 @@ public class PawnsPiece extends Piece {
 		int[][] targetU = new int[][] { { 0, 1 }, { 0, -1 }, { -1, 0 } };
 		int[][] targetD = new int[][] { { 0, 1 }, { 0, -1 }, { 1, 0 } };
 		
+		this.nextPosition.clear();
+		
 		if (board.currentPlayer.hashCode() == "red".hashCode()) {
 			if (this.currentPosition[0] > 4) {
 				int[] e = new int[] { this.currentPosition[0] - 1, this.currentPosition[1] };

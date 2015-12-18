@@ -15,6 +15,8 @@ public class KnightsPiece extends Piece {
 		int[][] obstacle = new int[][] { { 0, -1 }, { 1, 0 }, { 1, 0 }, { 0, 1 }, { 0, 1 }, { -1, 0 }, { -1, 0 },
 				{ 0, -1 } };
 
+		this.nextPosition.clear();
+				
 		for (int i = 0; i < target.length; i++) {
 			int[] e = new int[] { this.currentPosition[0] + target[i][0], this.currentPosition[1] + target[i][1] };
 			int[] f = new int[] { this.currentPosition[0] + obstacle[i][0], this.currentPosition[1] + obstacle[i][1] };

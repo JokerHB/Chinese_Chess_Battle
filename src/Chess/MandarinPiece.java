@@ -12,6 +12,8 @@ public class MandarinPiece extends Piece {
 		// TODO Auto-generated method stub
 		int[][] target = new int[][] { { -1, -1 }, { 1, 1 }, { -1, 1 }, { 1, -1 } };
 
+		this.nextPosition.clear();
+		
 		for (int[] aTarget : target) {
 			int[] e = new int[] { this.currentPosition[0] + aTarget[0], this.currentPosition[1] + aTarget[1] };
 			
