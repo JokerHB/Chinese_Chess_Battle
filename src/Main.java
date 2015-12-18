@@ -37,6 +37,7 @@ public class Main {
 				view.showWinner("red");
 			}
 			
+			// call the ai alogrithm to slove the next step
 			// controller.responseMoveChess(board, view);
 			
 			view.showPlayer(board.currentPlayer);
@@ -53,6 +54,5 @@ public class Main {
 				view.showWinner("black");
 			}
 		}
-		view.showPlayer(board.currentPlayer);
 	}
 }

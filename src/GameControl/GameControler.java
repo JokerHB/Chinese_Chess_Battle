@@ -3,6 +3,9 @@ package GameControl;
 import java.util.HashMap;
 import java.util.Map;
 
+import AIAlogithm.Alogrithm;
+import AIAlogithm.BaseAlogrithm;
+import AIAlogithm.BaseNode;
 import Chess.Board;
 import Chess.CannonsPiece;
 import Chess.ElephantPiece;
@@ -81,6 +84,14 @@ public class GameControler {
 		// update UI and board
 		// view.movePieceFromAI(result.piece, result.to);
 	    // board.updatePiece(result.piece, result.to);
+		
+		//eg
+		Alogrithm alogrithm = new BaseAlogrithm();
+		alogrithm.init(board);
+		BaseNode result = alogrithm.slove();
+		
+		view.movePieceFromAI(result.getId(), result.getNextPosition());
+		
 	}
 
 	public char hasWin(Board board) {
