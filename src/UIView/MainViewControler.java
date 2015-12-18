@@ -90,7 +90,7 @@ public class MainViewControler {
 	public void movePieceFromAI(String pieceId, int[] to) {
 		Piece inNewPos = this.board.getPiece(to);
 
-		if (null == inNewPos) {
+		if (null != inNewPos) {
 			this.pane.remove(this.pieceObjects.get(inNewPos.id));
 			this.pieceObjects.remove(inNewPos.id);
 		}

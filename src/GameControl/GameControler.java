@@ -76,6 +76,11 @@ public class GameControler {
 
 	public void responseMoveChess(Board board, MainViewControler view) {
 		// AI alogithm
+		// AI alogithm should return the best result
+		// result should include piece's id, and target position 
+		// update UI and board
+		// view.movePieceFromAI(result.piece, result.to);
+	    // board.updatePiece(result.piece, result.to);
 	}
 
 	public char hasWin(Board board) {
