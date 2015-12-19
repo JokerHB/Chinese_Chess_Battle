@@ -15,9 +15,9 @@ import javax.swing.WindowConstants;
 
 import Chess.Board;
 import Chess.Piece;
-import GameControl.GameControler;
+import GameController.GameController;
 
-public class MainViewControler {
+public class MainViewController {
 	private static final int VIEW_WIDTH = 700;
 	private static final int VIEW_HEIGHT = 712;
 	private static final int PIECE_WIDTH = 67;
@@ -32,11 +32,11 @@ public class MainViewControler {
 	private Board board;
 	private String selectedPieceID;
 	private JFrame frame;
-	private JLayeredPane pane;
-	private GameControler gameController;
+	private JLayeredPane gamePane;
+	private GameController gameController;
 	private JLabel lblPlayer;
 
-	public MainViewControler(GameControler gc) {
+	public MainViewController(GameController gc) {
 		this.gameController = gc;
 	}
 
@@ -49,19 +49,19 @@ public class MainViewControler {
 		this.frame.setLocationRelativeTo(null);
 		this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		this.pane = new JLayeredPane();
-		this.frame.add(this.pane);
-
+		this.gamePane = new JLayeredPane();
+		this.frame.add(this.gamePane);
+		
 		JLabel backgroundBoard = new JLabel(new ImageIcon("res/img/board.png"));
 		backgroundBoard.setLocation(0, 0);
 		backgroundBoard.setSize(this.VIEW_WIDTH, this.VIEW_HEIGHT);
 		backgroundBoard.addMouseListener(new BoardClickListener());
-		this.pane.add(backgroundBoard, 1);
+		this.gamePane.add(backgroundBoard, 1);
 
 		this.lblPlayer = new JLabel(new ImageIcon("res/img/r.png"));
 		this.lblPlayer.setLocation(10, 320);
 		this.lblPlayer.setSize(this.PIECE_WIDTH, this.PIECE_HEIGHT);
-		this.pane.add(this.lblPlayer, 0);
+		this.gamePane.add(this.lblPlayer, 0);
 
 		for (int i = 0; i < Board.BOARD_HEIGHT; i++) {
 			for (int j = 0; j < Board.BOARD_WIDTH; j++) {
@@ -74,7 +74,7 @@ public class MainViewControler {
 				nextStep.setVisible(false);
 				
 				this.nextStepObjects.put(id, nextStep);
-				this.pane.add(nextStep, 1);
+				this.gamePane.add(nextStep, 1);
 			}
 		}
 		this.frame.setVisible(true);
@@ -91,8 +91,9 @@ public class MainViewControler {
 			lblPiece.addMouseListener(new PieceOnClickListener(id));
 
 			this.pieceObjects.put(stringPieceEntry.getKey(), lblPiece);
-			this.pane.add(lblPiece, 0);
+			this.gamePane.add(lblPiece, 0);
 		}
+		
 		this.frame.setVisible(true);
 	}
 
@@ -108,7 +109,7 @@ public class MainViewControler {
 		Piece inNewPos = this.board.getPiece(to);
 
 		if (null != inNewPos) {
-			this.pane.remove(this.pieceObjects.get(inNewPos.id));
+			this.gamePane.remove(this.pieceObjects.get(inNewPos.id));
 			this.pieceObjects.remove(inNewPos.id);
 		}
 
@@ -164,7 +165,7 @@ public class MainViewControler {
 
 				for (int[] each : nextPosition) {
 					if (Arrays.equals(each, pos)) {
-						pane.remove(pieceObjects.get(id));
+						gamePane.remove(pieceObjects.get(id));
 						pieceObjects.remove(id);
 						gameController.moveChess(selectedPieceID, pos, board);
 						movePieceFromModel(selectedPieceID, pos);

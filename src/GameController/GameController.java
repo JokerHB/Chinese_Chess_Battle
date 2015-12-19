@@ -1,4 +1,4 @@
-package GameControl;
+package GameController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,9 +15,9 @@ import Chess.MandarinPiece;
 import Chess.PawnsPiece;
 import Chess.Piece;
 import Chess.RookPiece;
-import UIView.MainViewControler;
+import UIView.MainViewController;
 
-public class GameControler {
+public class GameController {
 
 	private Map<String, Piece> initPieces() {
 		Map<String, Piece> pieces = new HashMap<String, Piece>();
@@ -77,32 +77,108 @@ public class GameControler {
 		board.updatePiece(id, position);
 	}
 
-	public void responseMoveChess(Board board, MainViewControler view) {
+	public void responseMoveChess(Board board, MainViewController view) {
 		// AI alogithm
 		// AI alogithm should return the best result
-		// result should include piece's id, and target position 
+		// result should include piece's id, and target position
 		// update UI and board
 		// view.movePieceFromAI(result.piece, result.to);
-	    // board.updatePiece(result.piece, result.to);
-		
-		//eg
+		// board.updatePiece(result.piece, result.to);
+
+		// eg
 		Alogrithm alogrithm = new BaseAlogrithm();
 		alogrithm.init(board);
 		BaseNode result = alogrithm.slove();
-		
+
 		view.movePieceFromAI(result.getId(), result.getNextPosition());
-		
+
 	}
 
 	public char hasWin(Board board) {
 		boolean isRedWin = board.pieces.get("bb0") == null;
 		boolean isBlackWin = board.pieces.get("rb0") == null;
-		
+
 		if (isRedWin)
 			return 'r';
 		else if (isBlackWin)
 			return 'b';
 		else
 			return 'x';
+	}
+
+	public void dobuleModel(MainViewController view, Board board) {
+		while (this.hasWin(board) == 'x') {
+			view.showPlayer(board.currentPlayer);
+
+			if (this.hasWin(board) != 'x') {
+				view.showWinner("red");
+			}
+
+			view.showPlayer(board.currentPlayer);
+
+			if (this.hasWin(board) != 'x') {
+				view.showWinner("black");
+			}
+		}
+	}
+
+	public void singleModel(MainViewController view, Board board) {
+		while (this.hasWin(board) == 'x') {
+			view.showPlayer(board.currentPlayer);
+			while (board.currentPlayer.hashCode() == "red".hashCode()) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			if (this.hasWin(board) != 'x') {
+				view.showWinner("red");
+			}
+
+			view.showPlayer(board.currentPlayer);
+			// call the ai alogrithm to slove the next step
+			this.responseMoveChess(board, view);
+
+			if (this.hasWin(board) != 'x') {
+				view.showWinner("black");
+			}
+		}
+	}
+
+	public void watchModel(MainViewController view, Board board) {
+		while (this.hasWin(board) == 'x') {
+			view.showPlayer(board.currentPlayer);
+			// call the ai alogrithm to slove the next step
+			this.responseMoveChess(board, view);
+			while (board.currentPlayer.hashCode() == "red".hashCode()) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (this.hasWin(board) != 'x') {
+				view.showWinner("red");
+			}
+
+			view.showPlayer(board.currentPlayer);
+			// call the ai alogrithm to slove the next step
+			this.responseMoveChess(board, view);
+			while (board.currentPlayer.hashCode() == "red".hashCode()) {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (this.hasWin(board) != 'x') {
+				view.showWinner("black");
+			}
+		}
 	}
 }
