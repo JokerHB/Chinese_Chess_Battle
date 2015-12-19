@@ -7,6 +7,7 @@ public class Board {
 	public static final int BOARD_HEIGHT = 10;
 	public Map<String, Piece> pieces;
 	public String currentPlayer = "red";
+	public int gameModel = -1;
 	private Piece[][] cells = new Piece[BOARD_HEIGHT][BOARD_WIDTH];
 
 	public boolean isInside(int[] position) {
