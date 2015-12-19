@@ -18,4 +18,12 @@ public abstract class BaseNode {
 	public int[] getNextPosition() {
 		return this.nextPosition;
 	}
+	
+	public void setId(String Id) {
+		this.id = Id;
+	}
+	
+	public void setNextPosition(int[] pos) {
+		this.nextPosition = pos;
+	}
 }

@@ -104,6 +104,7 @@ public class FunctionViewController implements ActionListener {
 			this.frame.dispose();
 		} else if (hashCode == "watch".hashCode()) {
 			this.gameModel = 3;
+			System.out.println(3);
 			this.frame.dispose();
 		} else if (hashCode == "offensive".hashCode()) {
 			this.gameFirst = 1;

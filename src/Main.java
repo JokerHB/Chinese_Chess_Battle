@@ -38,6 +38,10 @@ public class Main {
 			}	
 		}
 		
+		if(selectView.gameModel == 3) {
+			board.currentPlayer = "black";
+		}
+		
 		board.gameModel = selectView.gameModel;
 		selectView.gameModel = -1;
 		selectView.gameFirst = -1;

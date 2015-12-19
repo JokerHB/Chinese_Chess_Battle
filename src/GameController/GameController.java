@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import AIAlogithm.Alogrithm;
-import AIAlogithm.BaseAlogrithm;
 import AIAlogithm.BaseNode;
+import AIAlogithm.SearchModel;
 import Chess.Board;
 import Chess.CannonsPiece;
 import Chess.ElephantPiece;
@@ -17,7 +17,7 @@ import Chess.Piece;
 import Chess.RookPiece;
 import UIView.MainViewController;
 
-public class GameController {	
+public class GameController {
 	private Board initBoard() {
 		Board board = new Board();
 		board.pieces = initPieces();
@@ -46,12 +46,12 @@ public class GameController {
 		// board.updatePiece(result.piece, result.to);
 
 		// eg
-		Alogrithm alogrithm = new BaseAlogrithm();
+		Alogrithm alogrithm = (Alogrithm) new SearchModel();
 		alogrithm.init(board);
 		BaseNode result = alogrithm.slove();
 
 		view.movePieceFromAI(result.getId(), result.getNextPosition());
-
+		board.updatePiece(result.getId(), result.getNextPosition());
 	}
 
 	public char hasWin(Board board) {
@@ -113,37 +113,23 @@ public class GameController {
 			view.showPlayer(board.currentPlayer);
 			// call the ai alogrithm to slove the next step
 			this.responseMoveChess(board, view);
-			while (board.currentPlayer.hashCode() == "red".hashCode()) {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+
 			if (this.hasWin(board) != 'x') {
-				view.showWinner("red");
+				view.showWinner("black");
 			}
 
 			view.showPlayer(board.currentPlayer);
 			// call the ai alogrithm to slove the next step
 			this.responseMoveChess(board, view);
-			while (board.currentPlayer.hashCode() == "red".hashCode()) {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+
 			if (this.hasWin(board) != 'x') {
 				view.showWinner("black");
 			}
 		}
 	}
-	
+
 	public void runModel(MainViewController view, Board board) {
-		switch(board.gameModel) {
+		switch (board.gameModel) {
 		case 1:
 			this.singleModel(view, board);
 			break;
@@ -155,7 +141,7 @@ public class GameController {
 			break;
 		}
 	}
-	
+
 	private Map<String, Piece> initPieces() {
 		Map<String, Piece> pieces = new HashMap<String, Piece>();
 		pieces.put("bj0", new RookPiece("bj0", new int[] { 0, 0 }));
