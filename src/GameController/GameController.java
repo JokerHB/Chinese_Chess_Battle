@@ -1,3 +1,8 @@
+/*
+ * GameController Class
+ * @author 洪博 靳
+ */
+
 package GameController;
 
 import java.util.HashMap;
@@ -18,12 +23,18 @@ import Chess.RookPiece;
 import UIView.MainViewController;
 
 public class GameController {
+	/**
+	 * init the gamecontroller
+	 * @return
+	 */
 	private Board initBoard() {
 		Board board = new Board();
 		board.pieces = initPieces();
-		for (Map.Entry<String, Piece> stringPieceEntry : initPieces().entrySet())
-			board.update(stringPieceEntry.getValue());
-
+		
+		// 使用Board.update 方法初始化棋盘
+		for (Map.Entry<String, Piece> stringPieceEntry : initPieces().entrySet()){
+			board.update(stringPieceEntry.getValue());	
+		}
 		return board;
 	}
 
@@ -32,11 +43,22 @@ public class GameController {
 
 		return this.initBoard();
 	}
-
+	
+	/**
+	 * 移动棋局上id的棋子到position
+	 * @param id
+	 * @param position
+	 * @param board
+	 */
 	public void moveChess(String id, int[] position, Board board) {
 		board.updatePiece(id, position);
 	}
 
+	/**
+	 * AI算法， 传入当前棋局，做出决策后更新棋局状态与UI
+	 * @param board
+	 * @param view
+	 */
 	public void responseMoveChess(Board board, MainViewController view) {
 		// AI alogithm
 		// AI alogithm should return the best result
@@ -54,6 +76,11 @@ public class GameController {
 		board.updatePiece(result.getId(), result.getNextPosition());
 	}
 
+	/**
+	 * 判断当前棋局是否出现输赢方
+	 * @param board
+	 * @return
+	 */
 	public char hasWin(Board board) {
 		boolean isRedWin = board.pieces.get("bb0") == null;
 		boolean isBlackWin = board.pieces.get("rb0") == null;
@@ -65,7 +92,12 @@ public class GameController {
 		else
 			return 'x';
 	}
-
+	
+	/**
+	 * 双人对战模型
+	 * @param view
+	 * @param board
+	 */
 	public void dobuleModel(MainViewController view, Board board) {
 		while (this.hasWin(board) == 'x') {
 			view.showPlayer(board.currentPlayer);
@@ -81,7 +113,12 @@ public class GameController {
 			}
 		}
 	}
-
+	
+	/**
+	 * 单人（人机）对战模型
+	 * @param view
+	 * @param board
+	 */
 	public void singleModel(MainViewController view, Board board) {
 		while (this.hasWin(board) == 'x') {
 			view.showPlayer(board.currentPlayer);
@@ -107,7 +144,12 @@ public class GameController {
 			}
 		}
 	}
-
+	
+	/**
+	 * 观战模型，观战两个AI进行游戏
+	 * @param view
+	 * @param board
+	 */
 	public void watchModel(MainViewController view, Board board) {
 		while (this.hasWin(board) == 'x') {
 			view.showPlayer(board.currentPlayer);
@@ -142,6 +184,10 @@ public class GameController {
 		}
 	}
 
+	/**
+	 * 初始化棋子
+	 * @return
+	 */
 	private Map<String, Piece> initPieces() {
 		Map<String, Piece> pieces = new HashMap<String, Piece>();
 		pieces.put("bj0", new RookPiece("bj0", new int[] { 0, 0 }));

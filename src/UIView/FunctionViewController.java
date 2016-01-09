@@ -1,3 +1,8 @@
+/*
+ * FunctionViewController Class
+ * @author 洪博 靳
+ */
+
 package UIView;
 
 import java.awt.event.ActionEvent;
@@ -16,18 +21,21 @@ public class FunctionViewController implements ActionListener {
 	private static final int VIEW_WIDTH = 700;
 	private static final int VIEW_HEIGHT = 712;
 	
-	public static int gameModel = -1;
-	public static int gameFirst = -1;
+	public static int gameModel = -1;		// 游戏模型
+	public static int gameFirst = -1;		// 是否先手
 	
 	private JFrame frame;
 	private JLayeredPane functionPane;
 
-	private JButton singlePlayer_Btn;
-	private JButton doublePlayer_Btn;
-	private JButton watchPlayer_Btn;
-	private JButton offensive_Btn;
-	private JButton defensive_Btn;
+	private JButton singlePlayer_Btn;		// 单人模型按钮
+	private JButton doublePlayer_Btn;		// 双人模型按钮
+	private JButton watchPlayer_Btn;		// 观战模型按钮
+	private JButton offensive_Btn;			// 先手模型按钮
+	private JButton defensive_Btn;			// 后手模型按钮
 	
+	/**
+	 * 初始化
+	 */
 	public void init() {
 		this.frame = new JFrame("Chinese Chess Battle @HongBo.Jing, Jing.Chen, WenShan.Li");
 		this.frame.setIconImage(new ImageIcon("res/img/icon.icon.png").getImage());

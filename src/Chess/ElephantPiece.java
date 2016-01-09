@@ -1,3 +1,8 @@
+/*
+ * ElephantPiece Class
+ * @author 洪博 靳
+ */
+
 package Chess;
 
 public class ElephantPiece extends Piece {

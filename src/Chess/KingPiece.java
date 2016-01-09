@@ -1,3 +1,8 @@
+/*
+ * KingPiece Class
+ * @author 洪博 靳
+ */
+
 package Chess;
 
 public class KingPiece extends Piece {

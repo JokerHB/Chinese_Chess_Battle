@@ -1,3 +1,8 @@
+/*
+ * MainViewController
+ * @author 洪博 靳
+ */
+
 package UIView;
 
 import java.awt.event.MouseAdapter;
@@ -27,10 +32,10 @@ public class MainViewController {
 	private static final int SX_OFFSET = 50;
 	private static final int SY_OFFSET = 15;
 
-	private Map<String, JLabel> pieceObjects = new HashMap<String, JLabel>();
-	private Map<String, JLabel> nextStepObjects = new HashMap<String, JLabel>();
-	private Board board;
-	private String selectedPieceID;
+	private Map<String, JLabel> pieceObjects = new HashMap<String, JLabel>();				// 棋子映射表
+	private Map<String, JLabel> nextStepObjects = new HashMap<String, JLabel>();			// 可走点表
+	private Board board;																	// 当前棋局
+	private String selectedPieceID;															// 当前选中棋子
 	private JFrame frame;
 	private JLayeredPane gamePane;
 	private GameController gameController;
@@ -40,6 +45,10 @@ public class MainViewController {
 		this.gameController = gc;
 	}
 
+	/**
+	 * 初始化游戏UI
+	 * @param bd
+	 */
 	public void init(final Board bd) {
 		this.board = bd;
 
@@ -97,6 +106,11 @@ public class MainViewController {
 		this.frame.setVisible(true);
 	}
 
+	/**
+	 * 玩家：移动棋子到to位置
+	 * @param pieceId
+	 * @param to
+	 */
 	public void movePieceFromModel(String pieceId, int[] to) {
 		JLabel pieceObject = this.pieceObjects.get(pieceId);
 		int[] setPosition = this.modelToViewConverter(to);
@@ -104,7 +118,12 @@ public class MainViewController {
 		pieceObject.setLocation(setPosition[0], setPosition[1]);
 		this.selectedPieceID = null;
 	}
-
+	
+	/**
+	 * AI：移动棋子到to位置
+	 * @param pieceId
+	 * @param to
+	 */
 	public void movePieceFromAI(String pieceId, int[] to) {
 		Piece inNewPos = this.board.getPiece(to);
 
@@ -120,13 +139,23 @@ public class MainViewController {
 		this.selectedPieceID = null;
 	}
 
+	/**
+	 * 将逻辑坐标转为UI界面坐标
+	 * @param currentPosition
+	 * @return UI position
+	 */
 	private int[] modelToViewConverter(int[] currentPosition) {
 		int sx = currentPosition[1] * this.SX_COE + this.SX_OFFSET;
 		int sy = currentPosition[0] * this.SY_COE + this.SY_OFFSET;
 
 		return new int[] { sx, sy };
 	}
-
+	
+	/**
+	 * 将UI界面坐标转化为逻辑坐标
+	 * @param setPosition
+	 * @return logical position
+	 */
 	private int[] viewToModelConverter(int[] setPosition) {
 		int ADDITIONAL_SY_OFFSET = 25;
 		int y = (setPosition[0] - this.SX_OFFSET) / this.SX_COE;
@@ -135,20 +164,37 @@ public class MainViewController {
 		return new int[] { x, y };
 	}
 
+	/**
+	 * 显示当前执子方
+	 * @param player
+	 */
 	public void showPlayer(String player) {
 		this.lblPlayer.setIcon(new ImageIcon("res/img/" + player.substring(0, 1) + ".png"));
 		this.frame.setVisible(true);
 	}
 
+	/**
+	 * 显式当前赢家并结束程序
+	 * @param player
+	 */
 	public void showWinner(String player) {
 		JOptionPane.showMessageDialog(null, player + " has won!");
 		System.exit(0);
 	}
 
+	/**
+	 * 得到选中棋子的ID
+	 * @return id-String
+	 */
 	public String getSelectPieceId() {
 		return this.selectedPieceID;
 	}
 
+	/**
+	 * 添加棋子点击监视器
+	 * @author 洪博 靳
+	 *
+	 */
 	class PieceOnClickListener extends MouseAdapter {
 		private String id;
 
@@ -169,7 +215,7 @@ public class MainViewController {
 						pieceObjects.remove(id);
 						gameController.moveChess(selectedPieceID, pos, board);
 						movePieceFromModel(selectedPieceID, pos);
-
+						// 消除可走点
 						for (Map.Entry<String, JLabel> stringPieceEntry : nextStepObjects.entrySet()) {
 							stringPieceEntry.getValue().setVisible(false);
 						}
@@ -179,6 +225,7 @@ public class MainViewController {
 				}
 			} else if (id.charAt(0) == board.currentPlayer.charAt(0)) {
 				if (selectedPieceID != null && id.hashCode() != selectedPieceID.hashCode()) {
+					// 消除可走点
 					for (Map.Entry<String, JLabel> stringPieceEntry : nextStepObjects.entrySet()) {
 						stringPieceEntry.getValue().setVisible(false);
 					}
@@ -189,6 +236,7 @@ public class MainViewController {
 				board.pieces.get(selectedPieceID).rule(board);
 				ArrayList<int[]> nextPosition = board.pieces.get(selectedPieceID).nextPosition;
 
+				// 显示可走点
 				for (int[] each : nextPosition) {
 					String id = String.valueOf(each[0]) + "," + String.valueOf(each[1]);
 					nextStepObjects.get(id).setVisible(true);
@@ -198,6 +246,11 @@ public class MainViewController {
 		}
 	}
 
+	/**
+	 * 添加棋盘点击监视器
+	 * @author 洪博 靳
+	 *
+	 */
 	class BoardClickListener extends MouseAdapter {
 		@Override
 		public void mousePressed(MouseEvent e) {

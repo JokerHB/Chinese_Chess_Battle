@@ -1,3 +1,8 @@
+/*
+ * RookPiece Class
+ * @author 洪博 靳
+ */
+
 package Chess;
 
 public class RookPiece extends Piece {

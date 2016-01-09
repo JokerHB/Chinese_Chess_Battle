@@ -1,3 +1,8 @@
+/*
+ * PawnsPiece Class
+ * @author 洪博 靳
+ */
+
 package Chess;
 
 public class PawnsPiece extends Piece {

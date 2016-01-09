@@ -1,3 +1,8 @@
+/*
+ * EvalModel Class
+ * @author 洪博 靳
+ */
+
 package AIAlogithm;
 
 import java.util.Map;
@@ -8,6 +13,12 @@ import Chess.Piece;
 public class EvalModel {
 	private int[][] values = new int[2][2];
 
+	/**
+	 * 对棋局board进行评估， 返回评估值
+	 * @param board
+	 * @param player
+	 * @return
+	 */
 	public int eval(Board board, char player) {
 		for (Map.Entry<String, Piece> stringPieceEntry : board.pieces.entrySet()) {
 			Piece piece = stringPieceEntry.getValue();
@@ -85,12 +96,23 @@ public class EvalModel {
 		}
 	}
 
+	/**
+	 * 静态评估值
+	 * @param p
+	 * @return value-int
+	 */
 	private int evalPieceValue(int p) {
 		int[] pieceValue = new int[] { 1000000, 110, 110, 300, 600, 300, 70 };
 		
 		return pieceValue[p];
 	}
 
+	/**
+	 * 棋子移动位置静态评估值
+	 * @param p
+	 * @param pos
+	 * @return
+	 */
 	private int evalPiecePosition(int p, int[] pos) {
 		int[][] pPosition = new int[][] { { 6, 4, 0, -10, -12, -10, 0, 4, 6 }, { 2, 2, 0, -4, -14, -4, 0, 2, 2 },
 				{ 2, 2, 0, -10, -8, -10, 0, 2, 2 }, { 0, 0, -2, 4, 10, 4, -2, 0, 0 }, { 0, 0, 0, 2, 8, 2, 0, 0, 0 },

@@ -1,3 +1,8 @@
+/*
+ * MandarinPiece Class
+ * @author 洪博 靳
+ */
+
 package Chess;
 
 public class MandarinPiece extends Piece {

@@ -1,3 +1,8 @@
+/*
+ * Chess Class
+ * @author 洪博 靳
+ */
+
 import Chess.Board;
 import GameController.GameController;
 import UIView.FunctionViewController;
@@ -21,6 +26,7 @@ public class Main {
 
 		selectView.init();
 
+		// 判断玩家选择的游戏模式
 		while(selectView.gameModel == -1) {
 			// do not delete this line
 			System.out.println(-1);
@@ -46,6 +52,7 @@ public class Main {
 		selectView.gameModel = -1;
 		selectView.gameFirst = -1;
 
+		// 开始游戏
 		view = new MainViewController(controller);
 		view.init(board);
 		controller.runModel(view, board);

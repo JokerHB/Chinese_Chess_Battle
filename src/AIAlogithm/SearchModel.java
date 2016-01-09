@@ -1,3 +1,8 @@
+/*
+ * SearchModel Class
+ * @author 洪博 靳
+ */
+
 package AIAlogithm;
 
 import java.util.ArrayList;
@@ -8,11 +13,16 @@ import Chess.Piece;
 import GameController.GameController;
 
 public class SearchModel implements Alogrithm {
-	private static int DEPTH = 2;
-	private Board board;
-	private char currentPlayer;
+	private static int DEPTH = 2;								// 默认搜索深度
+	private Board board;										// 当前棋局
+	private char currentPlayer;									// 当前执子方
 	private GameController controller = new GameController();
 
+	/**
+	 * AlphaBeta 剪枝搜索， 根据当前棋局的棋子数设置不同的搜索深度以平衡搜索时间
+	 * @param board
+	 * @return 返回一个最佳决策
+	 */
 	public AlphaBetaNode search(Board board) {
 		this.board = board;
 		if (board.pieces.size() < 28)
@@ -49,6 +59,14 @@ public class SearchModel implements Alogrithm {
 		return best;
 	}
 
+	/**
+	 * alphaBeta 剪枝搜索， 返回一个移动后的最大收益
+	 * @param depth
+	 * @param alpha
+	 * @param beta
+	 * @param isMax
+	 * @return
+	 */
 	private int alphaBeta(int depth, int alpha, int beta, boolean isMax) {
 		/* Return evaluation if reaching leaf node or any side won. */
 		if (depth == 0 || controller.hasWin(board) != 'x')
@@ -104,6 +122,11 @@ public class SearchModel implements Alogrithm {
 		return isMax ? alpha : beta;
 	}
 
+	/**
+	 * 得到可行走法集
+	 * @param isMax
+	 * @return ArrayList<AlphaBetaNode>
+	 */
 	private ArrayList<AlphaBetaNode> generateMovesForAll(boolean isMax) {
 		ArrayList<AlphaBetaNode> moves = new ArrayList<AlphaBetaNode>();
 		for (Map.Entry<String, Piece> stringPieceEntry : board.pieces.entrySet()) {

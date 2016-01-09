@@ -1,3 +1,8 @@
+/*
+ * KnightsPiece Class
+ * @author 洪博 靳
+ */
+
 package Chess;
 
 public class KnightsPiece extends Piece {
