@@ -16,11 +16,11 @@ public class SearchModel implements Alogrithm {
 	public AlphaBetaNode search(Board board) {
 		this.board = board;
 		if (board.pieces.size() < 28)
-			DEPTH = 5;
+			DEPTH = 2;
 		if (board.pieces.size() < 16)
-			DEPTH = 6;
+			DEPTH = 4;
 		if (board.pieces.size() < 6)
-			DEPTH = 7;
+			DEPTH = 6;
 		if (board.pieces.size() < 4)
 			DEPTH = 8;
 
